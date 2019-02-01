@@ -1,7 +1,6 @@
 from discord.ext import commands
 from gifplz import hent_gif_url
-
-
+from dictionary import alle_grundstoffer
 
 TOKEN = "NTQwODE1NzQ5OTgwMjI1NTU2.DzWkdg.8znkvamExm-UCeFjzy7U_OjOSZc"
 
@@ -14,12 +13,6 @@ bot = commands.Bot(command_prefix='!')
 async def hello():
     await bot.say("hello world")
 
-# Giver en !jonas kommando
-@bot.command()
-async def jonas():
-    await bot.say("JEG ER JONAS BOT")
-
-
 # Kommando med en parameter
 @bot.command()
 async def bedste_spil(spilnavn=None):
@@ -29,19 +22,24 @@ async def bedste_spil(spilnavn=None):
 
     await bot.say("Det bedste spil er: " + spilnavn)
 
-
 # Kommando til at sende en gif
 @bot.command()
 async def gif(gif=None):
     if not gif:
         return
 
-    gif = hent_gif_url(søgeord=gif)
+    gif = hent_gif_url(søgeord=gif)navn
 
 
     await bot.say("her er din gif: " + gif)
-#
 
+# Kommando til at sende grundstoffer
+@bot.command()
+async def grundstoffer(grundstof=None):
+    if not grundstof:
+        return
+    stof = alle_grundstoffer[grundstof]
+    await bot.say("Her er mere info for " + stof["stof"] + ","  + stof["link"])
 
 # Ikke så vigtig
 @bot.event
